@@ -209,45 +209,45 @@ const countMetricalSyllables = (
   if (!verse.trim()) return { count: 0, syllables: [], sinalefas: [] }
 
   // Procesar asteriscos (sinalefas manuales)
-  const manualSinalefaPositions: number[] = []
-  let processedVerse = ""
-  let sinalefaIndex = 0
-
-  // Procesar el verso para extraer asteriscos y marcar posiciones de sinalefas
-  for (let i = 0; i < verse.length; i++) {
-    if (verse[i] === "*") {
-      // Si hay un asterisco, marcamos la posición de la sinalefa
-      if (i > 0 && i < verse.length - 1) {
-        manualSinalefaPositions.push(sinalefaIndex - 1) // La posición es la de la vocal anterior
-      }
-    } else {
-      processedVerse += verse[i]
-      sinalefaIndex++
+  const countMetricalSyllables = (
+    verse: string,
+    forcedSinalefas: boolean[] = [],
+  ): { count: number; syllables: string[]; sinalefas: number[] } => {
+    if (!verse.trim()) return { count: 0, syllables: [], sinalefas: [] }
+  
+    // Split the verse into words
+    const words = verse.trim().split(/\s+/)
+    const allSyllables: string[] = []
+    
+    // Process each word individually first
+    for (const word of words) {
+      const syllables = divideWordIntoSyllables(word)
+      allSyllables.push(...syllables)
+    }
+  
+    // Start with the visual syllable count
+    let metricCount = allSyllables.length
+  
+    // Process manual sinalefas (marked with asterisks)
+    const manualSinalefaPositions: number[] = []
+    let processedVerse = verse
+    let asteriskPositions = []
+    let pos = -1
+  
+    while ((pos = processedVerse.indexOf('*')) !== -1) {
+      asteriskPositions.push(pos)
+      processedVerse = processedVerse.replace('*', '')
+    }
+  
+    // Adjust metric count for manual sinalefas
+    metricCount -= asteriskPositions.length
+  
+    return {
+      count: metricCount,
+      syllables: allSyllables,
+      sinalefas: manualSinalefaPositions,
     }
   }
-
-  // Dividir el verso en palabras
-  const words = processedVerse.trim().split(/\s+/)
-
-  // Dividir cada palabra en sílabas
-  const allSyllables: string[] = []
-  for (const word of words) {
-    const syllables = divideWordIntoSyllables(word)
-    allSyllables.push(...syllables)
-  }
-
-  // El conteo métrico comienza con el número de sílabas visuales
-  let metricCount = allSyllables.length
-
-  // Restar una sílaba por cada sinalefa manual
-  metricCount -= manualSinalefaPositions.length
-
-  return {
-    count: metricCount,
-    syllables: allSyllables,
-    sinalefas: manualSinalefaPositions,
-  }
-}
 
 // Función auxiliar para detectar sinalefas entre palabras
 const detectSinalefas = (words: string[]): { positions: number[]; syllableIndices: number[] } => {
