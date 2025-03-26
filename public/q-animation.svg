@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .q-path {
+      fill: none;
+      stroke: #1a1a1a;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: draw 2s ease forwards infinite;
+    }
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  </style>
+  <path class="q-path" d="M16,8 C12.6863,8 10,10.6863 10,14 C10,17.3137 12.6863,20 16,20 C19.3137,20 22,17.3137 22,14 C22,12.3431 21.3284,10.8432 20.2426,9.7574 L20.2426,9.7574 C19.1569,8.6716 17.6569,8 16,8 Z M20,18 L24,22"/>
+</svg>

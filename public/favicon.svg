@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .q-stroke {
+      fill: none;
+      stroke: #2d3748;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 150;
+      stroke-dashoffset: 150;
+      animation: drawQ 3s ease forwards infinite;
+    }
+    @keyframes drawQ {
+      0% { stroke-dashoffset: 150; }
+      60% { stroke-dashoffset: 0; }
+      100% { stroke-dashoffset: 0; }
+    }
+  </style>
+  <path class="q-stroke" d="M20,8 C23.3137,8 26,10.6863 26,14 C26,17.3137 23.3137,20 20,20 C16.6863,20 14,17.3137 14,14 C14,10.6863 16.6863,8 20,8 Z M20,20 L24,24"/>
+</svg>
